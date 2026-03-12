@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Calculadora de Anúncios</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#0f172a;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+background:#1e293b;
+padding:30px;
+border-radius:10px;
+width:350px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+label{
+font-size:14px;
+}
+
+input[type=range]{
+width:100%;
+margin:10px 0;
+}
+
+.result{
+background:#020617;
+padding:15px;
+border-radius:8px;
+margin-top:15px;
+}
+
+.result p{
+margin:5px 0;
+}
+
+.value{
+color:#22c55e;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Simulador de Anúncios</h2>
+
+<label>Investimento (USD)</label>
+<input type="range" min="5" max="1000" step="5" value="30" id="invest">
+
+<span id="usdValue">30 USD</span>
+
+<br><br>
+
+<label>Percentagem de Gestão</label>
+<input type="range" min="5" max="30" step="1" value="20" id="percent">
+
+<span id="percentValue">20%</span>
+
+<div class="result">
+
+<p>Investimento em MZN:
+<span class="value" id="mzn"></span></p>
+
+<p>Gestão:
+<span class="value" id="gestao"></span></p>
+
+<p>Total a pagar:
+<span class="value" id="total"></span></p>
+
+</div>
+
+</div>
+
+<script>
+
+const cambio = 63.9
+
+const invest = document.getElementById("invest")
+const percent = document.getElementById("percent")
+
+function calcular(){
+
+let usd = invest.value
+let perc = percent.value
+
+let mzn = usd * cambio
+let gestao = mzn * (perc/100)
+let total = mzn + gestao
+
+document.getElementById("usdValue").innerText = usd + " USD"
+document.getElementById("percentValue").innerText = perc + "%"
+
+document.getElementById("mzn").innerText =
+mzn.toFixed(2) + " MZN"
+
+document.getElementById("gestao").innerText =
+gestao.toFixed(2) + " MZN"
+
+document.getElementById("total").innerText =
+total.toFixed(2) + " MZN"
+
+}
+
+invest.oninput = calcular
+percent.oninput = calcular
+
+calcular()
+
+</script>
+
+</body>
+</html>
